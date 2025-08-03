@@ -27,7 +27,14 @@ data "aws_ami" "amazon-linux-3" {
 }
 
 
-resource "aws_instance" "myinstance" {
-  ami           = data.aws_ami.amazon-linux-3.id
-  instance_type = var.instance_type
+resource "aws_instance" "this" {
+  ami                    = var.ami_id
+  instance_type          = var.instance_type
+  subnet_id              = var.subnet_id
+  vpc_security_group_ids = var.security_group_ids
+  key_name               = var.key_name
+
+  tags = {
+    Name = var.name
+  }
 }
